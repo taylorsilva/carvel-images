@@ -4,6 +4,7 @@ resources:
   check_every: 1hr
   source:
     uri: https://github.com/taylorsilva/carvel-images
+    ignore_paths: [README.md]
 
 # Images
 - name: carvel-apps
