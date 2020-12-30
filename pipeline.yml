@@ -204,7 +204,6 @@ jobs:
       params:
         image: image/image.tar
         version: ((.:version-tag))
-        bump_aliases: true
 
 - name: kapp
   plan:
@@ -242,7 +241,6 @@ jobs:
       params:
         image: image/image.tar
         version: ((.:version-tag))
-        bump_aliases: true
 
 - name: kbld
   plan:
@@ -280,7 +278,6 @@ jobs:
       params:
         image: image/image.tar
         version: ((.:version-tag))
-        bump_aliases: true
 
 - name: kwt
   plan:
@@ -318,7 +315,6 @@ jobs:
       params:
         image: image/image.tar
         version: ((.:version-tag))
-        bump_aliases: true
 
 - name: imgpkg
   plan:
@@ -356,7 +352,6 @@ jobs:
       params:
         image: image/image.tar
         version: ((.:version-tag))
-        bump_aliases: true
 
 - name: vendir
   plan:
@@ -394,4 +389,3 @@ jobs:
       params:
         image: image/image.tar
         version: ((.:version-tag))
-        bump_aliases: true
