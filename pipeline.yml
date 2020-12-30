@@ -70,6 +70,7 @@ resources:
     owner: vmware-tanzu
     repository: carvel-ytt
     globs: ['*-linux-amd64']
+    access_token: ((github_access_token))
 
 - name: kapp-release
   icon: github
@@ -78,6 +79,7 @@ resources:
     owner: vmware-tanzu
     repository: carvel-kapp
     globs: ['*-linux-amd64']
+    access_token: ((github_access_token))
 
 - name: kbld-release
   icon: github
@@ -86,6 +88,7 @@ resources:
     owner: vmware-tanzu
     repository: carvel-kbld
     globs: ['*-linux-amd64']
+    access_token: ((github_access_token))
 
 - name: kwt-release
   icon: github
@@ -94,6 +97,7 @@ resources:
     owner: vmware-tanzu
     repository: carvel-kwt
     globs: ['*-linux-amd64']
+    access_token: ((github_access_token))
 
 - name: imgpkg-release
   icon: github
@@ -102,6 +106,7 @@ resources:
     owner: vmware-tanzu
     repository: carvel-imgpkg
     globs: ['*-linux-amd64']
+    access_token: ((github_access_token))
 
 - name: vendir-release
   icon: github
@@ -110,6 +115,7 @@ resources:
     owner: vmware-tanzu
     repository: carvel-vendir
     globs: ['*-linux-amd64']
+    access_token: ((github_access_token))
 
 jobs:
 - name: update-pipeline
