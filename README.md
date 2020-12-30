@@ -1,13 +1,13 @@
 # Carvel Images
 
-This repo publishes images that contain:
+This repo publishes images that contain the following [Carvel apps](https://carvel.dev):
 
-* ytt
-* kapp
-* kbld
-* kwt
-* imgpkg
-* vendir
+* [ytt](https://github.com/vmware-tanzu/carvel-ytt)
+* [kapp](https://github.com/vmware-tanzu/carvel-kapp)
+* [kbld](https://github.com/vmware-tanzu/carvel-kbld)
+* [kwt](https://github.com/vmware-tanzu/carvel-kwt)
+* [imgpkg](https://github.com/vmware-tanzu/carvel-imgpkg)
+* [vendir](https://github.com/vmware-tanzu/carvel-vendir)
 
 You can download a single image with the latest version of all apps with:
 ```
