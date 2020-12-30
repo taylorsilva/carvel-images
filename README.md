@@ -2,14 +2,16 @@
 
 This repo publishes images that contain the following [Carvel apps](https://carvel.dev):
 
-* [ytt](https://github.com/vmware-tanzu/carvel-ytt)
-* [kapp](https://github.com/vmware-tanzu/carvel-kapp)
-* [kbld](https://github.com/vmware-tanzu/carvel-kbld)
-* [kwt](https://github.com/vmware-tanzu/carvel-kwt)
-* [imgpkg](https://github.com/vmware-tanzu/carvel-imgpkg)
-* [vendir](https://github.com/vmware-tanzu/carvel-vendir)
+* [ytt](https://github.com/vmware-tanzu/carvel-ytt) | ![ytt image build status](https://ci.concourse-ci.org/api/v1/teams/tay/pipelines/carvel-apps/jobs/ytt/badge)
+* [kapp](https://github.com/vmware-tanzu/carvel-kapp) | ![kapp image build status](https://ci.concourse-ci.org/api/v1/teams/tay/pipelines/carvel-apps/jobs/kapp/badge)
+* [kbld](https://github.com/vmware-tanzu/carvel-kbld) | ![kbld image build status](https://ci.concourse-ci.org/api/v1/teams/tay/pipelines/carvel-apps/jobs/kbld/badge)
+* [kwt](https://github.com/vmware-tanzu/carvel-kwt) | ![kwt image build status](https://ci.concourse-ci.org/api/v1/teams/tay/pipelines/carvel-apps/jobs/kwt/badge)
+* [imgpkg](https://github.com/vmware-tanzu/carvel-imgpkg) | ![imgpkg image build status](https://ci.concourse-ci.org/api/v1/teams/tay/pipelines/carvel-apps/jobs/imgpkg/badge)
+* [vendir](https://github.com/vmware-tanzu/carvel-vendir) | ![vendir image build status](https://ci.concourse-ci.org/api/v1/teams/tay/pipelines/carvel-apps/jobs/vendir/badge)
+
 
 You can download a single image with the latest version of all apps with:
+![vendir image build status](https://ci.concourse-ci.org/api/v1/teams/tay/pipelines/carvel-apps/jobs/vendir/badge)
 ```
 docker pull taylorsilva/carvel-apps
 ```
