@@ -1,0 +1,376 @@
+resources:
+- name: repo
+  type: git
+  source:
+    uri: https://github.com/taylorsilva/carvel-images
+
+# Images
+- name: carvel-apps
+  icon: docker
+  type: registry-image
+  source:
+    repository: taylorsilva/carvel-apps
+    tag: latest
+    username: ((docker.username))
+    password: ((docker.password))
+
+- name: carvel-ytt
+  icon: docker
+  type: registry-image
+  source:
+    repository: taylorsilva/carvel-ytt
+    username: ((docker.username))
+    password: ((docker.password))
+
+- name: carvel-kapp
+  icon: docker
+  type: registry-image
+  source:
+    repository: taylorsilva/carvel-kapp
+    username: ((docker.username))
+    password: ((docker.password))
+
+- name: carvel-kbld
+  icon: docker
+  type: registry-image
+  source:
+    repository: taylorsilva/carvel-kbld
+    username: ((docker.username))
+    password: ((docker.password))
+
+- name: carvel-kwt
+  icon: docker
+  type: registry-image
+  source:
+    repository: taylorsilva/carvel-kwt
+    username: ((docker.username))
+    password: ((docker.password))
+
+- name: carvel-imgpkg
+  icon: docker
+  type: registry-image
+  source:
+    repository: taylorsilva/carvel-imgpkg
+    username: ((docker.username))
+    password: ((docker.password))
+
+- name: carvel-vendir
+  icon: docker
+  type: registry-image
+  source:
+    repository: taylorsilva/carvel-vendir
+    username: ((docker.username))
+    password: ((docker.password))
+
+# carvel apps
+- name: ytt-release
+  icon: github
+  type: github-release
+  source:
+    owner: vmware-tanzu
+    repository: carvel-ytt
+    globs: ['*-linux-amd64']
+
+- name: kapp-release
+  icon: github
+  type: github-release
+  source:
+    owner: vmware-tanzu
+    repository: carvel-kapp
+    globs: ['*-linux-amd64']
+
+- name: kbld-release
+  icon: github
+  type: github-release
+  source:
+    owner: vmware-tanzu
+    repository: carvel-kbld
+    globs: ['*-linux-amd64']
+
+- name: kwt-release
+  icon: github
+  type: github-release
+  source:
+    owner: vmware-tanzu
+    repository: carvel-kwt
+    globs: ['*-linux-amd64']
+
+- name: imgpkg-release
+  icon: github
+  type: github-release
+  source:
+    owner: vmware-tanzu
+    repository: carvel-imgpkg
+    globs: ['*-linux-amd64']
+
+- name: vendir-release
+  icon: github
+  type: github-release
+  source:
+    owner: vmware-tanzu
+    repository: carvel-vendir
+    globs: ['*-linux-amd64']
+
+jobs:
+- name: all-apps
+  plan:
+    - in_parallel:
+      - get: repo
+        trigger: true
+      - get: ytt-release
+        trigger: true
+      - get: kapp-release
+        trigger: true
+      - get: kbld-release
+        trigger: true
+      - get: kwt-release
+        trigger: true
+      - get: imgpkg-release
+        trigger: true
+      - get: vendir-release
+        trigger: true
+    - task: build-carvel-apps-image
+      config:
+        platform: linux
+        image_resource:
+          type: registry-image
+          source:
+            repository: vito/oci-build-task
+        params:
+          DOCKERFILE: repo/Dockerfile-carvel-apps
+        inputs:
+          - name: repo
+          - name: ytt-release
+          - name: kapp-release
+          - name: kbld-release
+          - name: kwt-release
+          - name: imgpkg-release
+          - name: vendir-release
+        outputs:
+          - name: image
+        run:
+          path: sh
+          args:
+            - -c
+            - |
+              chmod +x ./*-release/*-linux-amd64
+              build
+    - put: carvel-apps
+      params:
+        image: image/image.tar
+
+- name: ytt
+  plan:
+    - in_parallel:
+      - get: repo
+        trigger: true
+      - get: ytt-release
+        trigger: true
+    - task: build-carvel-ytt-image
+      config:
+        platform: linux
+        image_resource:
+          type: registry-image
+          source:
+            repository: vito/oci-build-task
+        params:
+          DOCKERFILE: repo/Dockerfile-ytt
+        inputs:
+          - name: repo
+          - name: ytt-release
+        outputs:
+          - name: image
+        run:
+          path: sh
+          args:
+            - -c
+            - |
+              chmod +x ./*-release/*-linux-amd64
+              build
+    - load_var: version-tag
+      file: ytt-release/version
+    - put: carvel-ytt
+      params:
+        image: image/image.tar
+        version: ((.:version-tag))
+        bump_aliases: true
+
+- name: kapp
+  plan:
+    - in_parallel:
+      - get: repo
+        trigger: true
+      - get: kapp-release
+        trigger: true
+    - task: build-carvel-kapp-image
+      config:
+        platform: linux
+        image_resource:
+          type: registry-image
+          source:
+            repository: vito/oci-build-task
+        params:
+          DOCKERFILE: repo/Dockerfile-kapp
+        inputs:
+          - name: repo
+          - name: kapp-release
+        outputs:
+          - name: image
+        run:
+          path: sh
+          args:
+            - -c
+            - |
+              chmod +x ./*-release/*-linux-amd64
+              build
+    - load_var: version-tag
+      file: kapp-release/version
+    - put: carvel-kapp
+      params:
+        image: image/image.tar
+        version: ((.:version-tag))
+        bump_aliases: true
+
+- name: kbld
+  plan:
+    - in_parallel:
+      - get: repo
+        trigger: true
+      - get: kbld-release
+        trigger: true
+    - task: build-carvel-kbld-image
+      config:
+        platform: linux
+        image_resource:
+          type: registry-image
+          source:
+            repository: vito/oci-build-task
+        params:
+          DOCKERFILE: repo/Dockerfile-kbld
+        inputs:
+          - name: repo
+          - name: kbld-release
+        outputs:
+          - name: image
+        run:
+          path: sh
+          args:
+            - -c
+            - |
+              chmod +x ./*-release/*-linux-amd64
+              build
+    - load_var: version-tag
+      file: kbld-release/version
+    - put: carvel-kbld
+      params:
+        image: image/image.tar
+        version: ((.:version-tag))
+        bump_aliases: true
+
+- name: kwt
+  plan:
+    - in_parallel:
+      - get: repo
+        trigger: true
+      - get: kwt-release
+        trigger: true
+    - task: build-carvel-kwt-image
+      config:
+        platform: linux
+        image_resource:
+          type: registry-image
+          source:
+            repository: vito/oci-build-task
+        params:
+          DOCKERFILE: repo/Dockerfile-kwt
+        inputs:
+          - name: repo
+          - name: kwt-release
+        outputs:
+          - name: image
+        run:
+          path: sh
+          args:
+            - -c
+            - |
+              chmod +x ./*-release/*-linux-amd64
+              build
+    - load_var: version-tag
+      file: kwt-release/version
+    - put: carvel-kwt
+      params:
+        image: image/image.tar
+        version: ((.:version-tag))
+        bump_aliases: true
+
+- name: imgpkg
+  plan:
+    - in_parallel:
+      - get: repo
+        trigger: true
+      - get: imgpkg-release
+        trigger: true
+    - task: build-carvel-imgpkg-image
+      config:
+        platform: linux
+        image_resource:
+          type: registry-image
+          source:
+            repository: vito/oci-build-task
+        params:
+          DOCKERFILE: repo/Dockerfile-imgpkg
+        inputs:
+          - name: repo
+          - name: imgpkg-release
+        outputs:
+          - name: image
+        run:
+          path: sh
+          args:
+            - -c
+            - |
+              chmod +x ./*-release/*-linux-amd64
+              build
+    - load_var: version-tag
+      file: imgpkg-release/version
+    - put: carvel-imgpkg
+      params:
+        image: image/image.tar
+        version: ((.:version-tag))
+        bump_aliases: true
+
+- name: vendir
+  plan:
+    - in_parallel:
+      - get: repo
+        trigger: true
+      - get: vendir-release
+        trigger: true
+    - task: build-carvel-vendir-image
+      config:
+        platform: linux
+        image_resource:
+          type: registry-image
+          source:
+            repository: vito/oci-build-task
+        params:
+          DOCKERFILE: repo/Dockerfile-vendir
+        inputs:
+          - name: repo
+          - name: vendir-release
+        outputs:
+          - name: image
+        run:
+          path: sh
+          args:
+            - -c
+            - |
+              chmod +x ./*-release/*-linux-amd64
+              build
+    - load_var: version-tag
+      file: vendir-release/version
+    - put: carvel-vendir
+      params:
+        image: image/image.tar
+        version: ((.:version-tag))
+        bump_aliases: true
