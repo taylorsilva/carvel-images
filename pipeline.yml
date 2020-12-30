@@ -112,10 +112,18 @@ resources:
     globs: ['*-linux-amd64']
 
 jobs:
+- name: update-pipeline
+  plan:
+    - get: repo
+      trigger: true
+    - set_pipeline: carvel-apps
+      file: repo/pipeline.yml
+
 - name: all-apps
   plan:
     - in_parallel:
       - get: repo
+        passed: [update-pipeline]
         trigger: true
       - get: ytt-release
         trigger: true
@@ -164,6 +172,7 @@ jobs:
   plan:
     - in_parallel:
       - get: repo
+        passed: [update-pipeline]
         trigger: true
       - get: ytt-release
         trigger: true
@@ -201,6 +210,7 @@ jobs:
   plan:
     - in_parallel:
       - get: repo
+        passed: [update-pipeline]
         trigger: true
       - get: kapp-release
         trigger: true
@@ -238,6 +248,7 @@ jobs:
   plan:
     - in_parallel:
       - get: repo
+        passed: [update-pipeline]
         trigger: true
       - get: kbld-release
         trigger: true
@@ -275,6 +286,7 @@ jobs:
   plan:
     - in_parallel:
       - get: repo
+        passed: [update-pipeline]
         trigger: true
       - get: kwt-release
         trigger: true
@@ -312,6 +324,7 @@ jobs:
   plan:
     - in_parallel:
       - get: repo
+        passed: [update-pipeline]
         trigger: true
       - get: imgpkg-release
         trigger: true
@@ -349,6 +362,7 @@ jobs:
   plan:
     - in_parallel:
       - get: repo
+        passed: [update-pipeline]
         trigger: true
       - get: vendir-release
         trigger: true
