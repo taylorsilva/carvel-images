@@ -130,6 +130,7 @@ jobs:
       - get: vendir-release
         trigger: true
     - task: build-carvel-apps-image
+      privileged: true
       config:
         platform: linux
         image_resource:
@@ -167,6 +168,7 @@ jobs:
       - get: ytt-release
         trigger: true
     - task: build-carvel-ytt-image
+      privileged: true
       config:
         platform: linux
         image_resource:
@@ -203,6 +205,7 @@ jobs:
       - get: kapp-release
         trigger: true
     - task: build-carvel-kapp-image
+      privileged: true
       config:
         platform: linux
         image_resource:
@@ -239,6 +242,7 @@ jobs:
       - get: kbld-release
         trigger: true
     - task: build-carvel-kbld-image
+      privileged: true
       config:
         platform: linux
         image_resource:
@@ -275,6 +279,7 @@ jobs:
       - get: kwt-release
         trigger: true
     - task: build-carvel-kwt-image
+      privileged: true
       config:
         platform: linux
         image_resource:
@@ -311,6 +316,7 @@ jobs:
       - get: imgpkg-release
         trigger: true
     - task: build-carvel-imgpkg-image
+      privileged: true
       config:
         platform: linux
         image_resource:
@@ -347,6 +353,7 @@ jobs:
       - get: vendir-release
         trigger: true
     - task: build-carvel-vendir-image
+      privileged: true
       config:
         platform: linux
         image_resource:
