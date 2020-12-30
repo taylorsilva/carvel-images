@@ -1,0 +1,4 @@
+FROM alpine
+
+COPY imgpkg-release/imgpkg-linux-amd64 /usr/local/bin/imgpkg
+RUN imgpkg version

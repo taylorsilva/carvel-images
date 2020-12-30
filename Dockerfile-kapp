@@ -1,0 +1,4 @@
+FROM alpine
+
+COPY kapp-release/kapp-linux-amd64 /usr/local/bin/kapp
+RUN kapp version

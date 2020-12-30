@@ -1,0 +1,16 @@
+FROM alpine
+
+COPY ytt-release/ytt-linux-amd64 /usr/local/bin/ytt
+COPY kapp-release/kapp-linux-amd64 /usr/local/bin/kapp
+COPY kbld-release/kbld-linux-amd64 /usr/local/bin/kbld
+COPY kwt-release/kwt-linux-amd64 /usr/local/bin/kwt
+COPY imgpkg-release/imgpkg-linux-amd64 /usr/local/bin/imgpkg
+COPY vendir-release/vendir-linux-amd64 /usr/local/bin/vendir
+
+# For logging to verify version added
+RUN ytt version &&\
+    kapp version &&\
+    kbld version &&\
+    kwt version &&\
+    imgpkg version &&\
+    vendir version

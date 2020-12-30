@@ -1,0 +1,4 @@
+FROM alpine
+
+COPY kwt-release/kwt-linux-amd64 /usr/local/bin/kwt
+RUN kwt version
