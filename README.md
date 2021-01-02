@@ -1,6 +1,6 @@
 # Carvel Images
 
-This repo publishes images that contain the following [Carvel apps](https://carvel.dev):
+This repo publishes images that contain the following [Carvel apps](https://carvel.dev). Images are all alpine based:
 
 * ![ytt image build status](https://ci.concourse-ci.org/api/v1/teams/tay/pipelines/carvel-apps/jobs/ytt/badge) [ytt](https://github.com/vmware-tanzu/carvel-ytt)
 * ![kapp image build status](https://ci.concourse-ci.org/api/v1/teams/tay/pipelines/carvel-apps/jobs/kapp/badge) [kapp](https://github.com/vmware-tanzu/carvel-kapp)
