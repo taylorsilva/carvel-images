@@ -69,6 +69,7 @@ resources:
 - name: ytt-release
   icon: github
   type: github-release
+  check_every: 1h
   source:
     owner: vmware-tanzu
     repository: carvel-ytt
@@ -78,6 +79,7 @@ resources:
 - name: kapp-release
   icon: github
   type: github-release
+  check_every: 1h
   source:
     owner: vmware-tanzu
     repository: carvel-kapp
@@ -87,6 +89,7 @@ resources:
 - name: kbld-release
   icon: github
   type: github-release
+  check_every: 1h
   source:
     owner: vmware-tanzu
     repository: carvel-kbld
@@ -96,6 +99,7 @@ resources:
 - name: kwt-release
   icon: github
   type: github-release
+  check_every: 1h
   source:
     owner: vmware-tanzu
     repository: carvel-kwt
@@ -105,6 +109,7 @@ resources:
 - name: imgpkg-release
   icon: github
   type: github-release
+  check_every: 1h
   source:
     owner: vmware-tanzu
     repository: carvel-imgpkg
@@ -114,6 +119,7 @@ resources:
 - name: vendir-release
   icon: github
   type: github-release
+  check_every: 1h
   source:
     owner: vmware-tanzu
     repository: carvel-vendir
