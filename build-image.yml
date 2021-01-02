@@ -1,0 +1,32 @@
+platform: linux
+
+image_resource:
+  type: registry-image
+  source:
+    repository: vito/oci-build-task
+
+inputs:
+- name: repo
+- name: ytt-release
+  optional: true
+- name: kapp-release
+  optional: true
+- name: kbld-release
+  optional: true
+- name: kwt-release
+  optional: true
+- name: imgpkg-release
+  optional: true
+- name: vendir-release
+  optional: true
+
+outputs:
+- name: image
+
+run:
+  path: sh
+  args:
+    - -c
+    - |
+      chmod +x ./*-release/*-linux-amd64
+      build
