@@ -1,6 +1,7 @@
 resources:
 - name: repo
   type: git
+  icon: git
   check_every: 1h
   source:
     uri: https://github.com/taylorsilva/carvel-images
