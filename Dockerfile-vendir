@@ -1,4 +1,6 @@
 FROM alpine
 
+RUN apk update && apk upgrade
+
 COPY vendir-release/vendir-linux-amd64 /usr/local/bin/vendir
 RUN vendir version

@@ -1,5 +1,7 @@
 FROM alpine
 
+RUN apk update && apk upgrade
+
 COPY ytt-release/ytt-linux-amd64 /usr/local/bin/ytt
 COPY kapp-release/kapp-linux-amd64 /usr/local/bin/kapp
 COPY kbld-release/kbld-linux-amd64 /usr/local/bin/kbld

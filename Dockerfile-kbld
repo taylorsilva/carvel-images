@@ -1,4 +1,6 @@
 FROM alpine
 
+RUN apk update && apk upgrade
+
 COPY kbld-release/kbld-linux-amd64 /usr/local/bin/kbld
 RUN kbld version

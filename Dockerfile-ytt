@@ -1,4 +1,6 @@
 FROM alpine
 
+RUN apk update && apk upgrade
+
 COPY ytt-release/ytt-linux-amd64 /usr/local/bin/ytt
 RUN ytt version

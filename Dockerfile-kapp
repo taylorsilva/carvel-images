@@ -1,4 +1,6 @@
 FROM alpine
 
+RUN apk update && apk upgrade
+
 COPY kapp-release/kapp-linux-amd64 /usr/local/bin/kapp
 RUN kapp version

@@ -7,6 +7,12 @@ resources:
     uri: https://github.com/taylorsilva/carvel-images
     ignore_paths: [README.md]
 
+- name: daily-rebuild
+  type: time
+  icon: clock
+  source:
+    interval: 24h
+
 # Images
 - name: carvel-apps
   icon: docker
@@ -139,6 +145,8 @@ jobs:
   public: true
   plan:
     - in_parallel:
+      - get: daily-rebuild
+        trigger: true
       - get: repo
         passed: [update-pipeline]
         trigger: true
@@ -167,6 +175,8 @@ jobs:
   public: true
   plan:
     - in_parallel:
+      - get: daily-rebuild
+        trigger: true
       - get: repo
         passed: [update-pipeline]
         trigger: true
@@ -189,6 +199,8 @@ jobs:
   public: true
   plan:
     - in_parallel:
+      - get: daily-rebuild
+        trigger: true
       - get: repo
         passed: [update-pipeline]
         trigger: true
@@ -211,6 +223,8 @@ jobs:
   public: true
   plan:
     - in_parallel:
+      - get: daily-rebuild
+        trigger: true
       - get: repo
         passed: [update-pipeline]
         trigger: true
@@ -233,6 +247,8 @@ jobs:
   public: true
   plan:
     - in_parallel:
+      - get: daily-rebuild
+        trigger: true
       - get: repo
         passed: [update-pipeline]
         trigger: true
@@ -255,6 +271,8 @@ jobs:
   public: true
   plan:
     - in_parallel:
+      - get: daily-rebuild
+        trigger: true
       - get: repo
         passed: [update-pipeline]
         trigger: true
@@ -277,6 +295,8 @@ jobs:
   public: true
   plan:
     - in_parallel:
+      - get: daily-rebuild
+        trigger: true
       - get: repo
         passed: [update-pipeline]
         trigger: true

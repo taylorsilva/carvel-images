@@ -1,4 +1,6 @@
 FROM alpine
 
+RUN apk update && apk upgrade
+
 COPY imgpkg-release/imgpkg-linux-amd64 /usr/local/bin/imgpkg
 RUN imgpkg version

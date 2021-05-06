@@ -1,4 +1,6 @@
 FROM alpine
 
+RUN apk update && apk upgrade
+
 COPY kwt-release/kwt-linux-amd64 /usr/local/bin/kwt
 RUN kwt version
