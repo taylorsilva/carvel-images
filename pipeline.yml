@@ -5,6 +5,15 @@ resources:
   check_every: 1h
   source:
     uri: https://github.com/taylorsilva/carvel-images
+    ignore_paths: [README.md, pipeline.yml, build-image.yml]
+
+- name: pipeline
+  type: git
+  icon: git
+  check_every: 1h
+  source:
+    uri: https://github.com/taylorsilva/carvel-images
+    paths: [pipeline.yml, build-image.yml]
     ignore_paths: [README.md]
 
 - name: daily-rebuild
@@ -79,7 +88,6 @@ resources:
   source:
     owner: vmware-tanzu
     repository: carvel-ytt
-    globs: ['*-linux-amd64']
     access_token: ((github_access_token))
 
 - name: kapp-release
@@ -89,7 +97,6 @@ resources:
   source:
     owner: vmware-tanzu
     repository: carvel-kapp
-    globs: ['*-linux-amd64']
     access_token: ((github_access_token))
 
 - name: kbld-release
@@ -99,7 +106,6 @@ resources:
   source:
     owner: vmware-tanzu
     repository: carvel-kbld
-    globs: ['*-linux-amd64']
     access_token: ((github_access_token))
 
 - name: kwt-release
@@ -109,7 +115,6 @@ resources:
   source:
     owner: vmware-tanzu
     repository: carvel-kwt
-    globs: ['*-linux-amd64']
     access_token: ((github_access_token))
 
 - name: imgpkg-release
@@ -119,7 +124,6 @@ resources:
   source:
     owner: vmware-tanzu
     repository: carvel-imgpkg
-    globs: ['*-linux-amd64']
     access_token: ((github_access_token))
 
 - name: vendir-release
@@ -129,17 +133,16 @@ resources:
   source:
     owner: vmware-tanzu
     repository: carvel-vendir
-    globs: ['*-linux-amd64']
     access_token: ((github_access_token))
 
 jobs:
 - name: update-pipeline
   public: true
   plan:
-    - get: repo
+    - get: pipeline
       trigger: true
     - set_pipeline: carvel-apps
-      file: repo/pipeline.yml
+      file: pipeline/pipeline.yml
 
 - name: all-apps
   public: true
@@ -148,20 +151,31 @@ jobs:
       - get: daily-rebuild
         trigger: true
       - get: repo
-        passed: [update-pipeline]
         trigger: true
       - get: ytt-release
         trigger: true
+        params:
+          globs: ['*-linux-amd64']
       - get: kapp-release
         trigger: true
+        params:
+          globs: ['*-linux-amd64']
       - get: kbld-release
         trigger: true
+        params:
+          globs: ['*-linux-amd64']
       - get: kwt-release
         trigger: true
+        params:
+          globs: ['*-linux-amd64']
       - get: imgpkg-release
         trigger: true
+        params:
+          globs: ['*-linux-amd64']
       - get: vendir-release
         trigger: true
+        params:
+          globs: ['*-linux-amd64']
     - task: build-carvel-apps-image
       file: repo/build-image.yml
       privileged: true
@@ -178,10 +192,11 @@ jobs:
       - get: daily-rebuild
         trigger: true
       - get: repo
-        passed: [update-pipeline]
         trigger: true
       - get: ytt-release
         trigger: true
+        params:
+          globs: ['*-linux-amd64']
     - task: build-carvel-ytt-image
       file: repo/build-image.yml
       privileged: true
@@ -202,10 +217,11 @@ jobs:
       - get: daily-rebuild
         trigger: true
       - get: repo
-        passed: [update-pipeline]
         trigger: true
       - get: kapp-release
         trigger: true
+        params:
+          globs: ['*-linux-amd64']
     - task: build-carvel-kapp-image
       file: repo/build-image.yml
       privileged: true
@@ -226,10 +242,11 @@ jobs:
       - get: daily-rebuild
         trigger: true
       - get: repo
-        passed: [update-pipeline]
         trigger: true
       - get: kbld-release
         trigger: true
+        params:
+          globs: ['*-linux-amd64']
     - task: build-carvel-kbld-image
       file: repo/build-image.yml
       privileged: true
@@ -250,10 +267,11 @@ jobs:
       - get: daily-rebuild
         trigger: true
       - get: repo
-        passed: [update-pipeline]
         trigger: true
       - get: kwt-release
         trigger: true
+        params:
+          globs: ['*-linux-amd64']
     - task: build-carvel-kwt-image
       file: repo/build-image.yml
       privileged: true
@@ -274,10 +292,11 @@ jobs:
       - get: daily-rebuild
         trigger: true
       - get: repo
-        passed: [update-pipeline]
         trigger: true
       - get: imgpkg-release
         trigger: true
+        params:
+          globs: ['*-linux-amd64']
     - task: build-carvel-imgpkg-image
       file: repo/build-image.yml
       privileged: true
@@ -298,10 +317,11 @@ jobs:
       - get: daily-rebuild
         trigger: true
       - get: repo
-        passed: [update-pipeline]
         trigger: true
       - get: vendir-release
         trigger: true
+        params:
+          globs: ['*-linux-amd64']
     - task: build-carvel-vendir-image
       file: repo/build-image.yml
       privileged: true
