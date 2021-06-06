@@ -21,6 +21,8 @@ resources:
   icon: clock
   source:
     interval: 24h
+    start: 3:40 AM
+    stop: 3:45 AM
 
 # Images
 - name: carvel-apps
@@ -84,7 +86,7 @@ resources:
 - name: ytt-release
   icon: github
   type: github-release
-  check_every: 1h
+  check_every: never
   source:
     owner: vmware-tanzu
     repository: carvel-ytt
@@ -93,7 +95,7 @@ resources:
 - name: kapp-release
   icon: github
   type: github-release
-  check_every: 1h
+  check_every: never
   source:
     owner: vmware-tanzu
     repository: carvel-kapp
@@ -102,7 +104,7 @@ resources:
 - name: kbld-release
   icon: github
   type: github-release
-  check_every: 1h
+  check_every: never
   source:
     owner: vmware-tanzu
     repository: carvel-kbld
@@ -111,7 +113,7 @@ resources:
 - name: kwt-release
   icon: github
   type: github-release
-  check_every: 1h
+  check_every: never
   source:
     owner: vmware-tanzu
     repository: carvel-kwt
@@ -120,7 +122,7 @@ resources:
 - name: imgpkg-release
   icon: github
   type: github-release
-  check_every: 1h
+  check_every: never
   source:
     owner: vmware-tanzu
     repository: carvel-imgpkg
@@ -129,7 +131,7 @@ resources:
 - name: vendir-release
   icon: github
   type: github-release
-  check_every: 1h
+  check_every: never
   source:
     owner: vmware-tanzu
     repository: carvel-vendir
@@ -153,27 +155,21 @@ jobs:
       - get: repo
         trigger: true
       - get: ytt-release
-        trigger: true
         params:
           globs: ['*-linux-amd64']
       - get: kapp-release
-        trigger: true
         params:
           globs: ['*-linux-amd64']
       - get: kbld-release
-        trigger: true
         params:
           globs: ['*-linux-amd64']
       - get: kwt-release
-        trigger: true
         params:
           globs: ['*-linux-amd64']
       - get: imgpkg-release
-        trigger: true
         params:
           globs: ['*-linux-amd64']
       - get: vendir-release
-        trigger: true
         params:
           globs: ['*-linux-amd64']
     - task: build-carvel-apps-image
@@ -194,7 +190,6 @@ jobs:
       - get: repo
         trigger: true
       - get: ytt-release
-        trigger: true
         params:
           globs: ['*-linux-amd64']
     - task: build-carvel-ytt-image
@@ -219,7 +214,6 @@ jobs:
       - get: repo
         trigger: true
       - get: kapp-release
-        trigger: true
         params:
           globs: ['*-linux-amd64']
     - task: build-carvel-kapp-image
@@ -244,7 +238,6 @@ jobs:
       - get: repo
         trigger: true
       - get: kbld-release
-        trigger: true
         params:
           globs: ['*-linux-amd64']
     - task: build-carvel-kbld-image
@@ -269,7 +262,6 @@ jobs:
       - get: repo
         trigger: true
       - get: kwt-release
-        trigger: true
         params:
           globs: ['*-linux-amd64']
     - task: build-carvel-kwt-image
@@ -294,7 +286,6 @@ jobs:
       - get: repo
         trigger: true
       - get: imgpkg-release
-        trigger: true
         params:
           globs: ['*-linux-amd64']
     - task: build-carvel-imgpkg-image
@@ -319,7 +310,6 @@ jobs:
       - get: repo
         trigger: true
       - get: vendir-release
-        trigger: true
         params:
           globs: ['*-linux-amd64']
     - task: build-carvel-vendir-image
