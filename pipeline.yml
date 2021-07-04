@@ -7,14 +7,14 @@ resources:
     uri: https://github.com/taylorsilva/carvel-images
     ignore_paths: [README.md, pipeline.yml, build-image.yml]
 
-- name: pipeline
-  type: git
-  icon: git
-  check_every: 1h
-  source:
-    uri: https://github.com/taylorsilva/carvel-images
-    paths: [pipeline.yml, build-image.yml]
-    ignore_paths: [README.md]
+# - name: pipeline
+#   type: git
+#   icon: git
+#   check_every: 1h
+#   source:
+#     uri: https://github.com/taylorsilva/carvel-images
+#     paths: [pipeline.yml, build-image.yml]
+#     ignore_paths: [README.md]
 
 - name: daily-rebuild
   type: time
@@ -137,13 +137,13 @@ resources:
     access_token: ((github_access_token))
 
 jobs:
-- name: update-pipeline
-  public: true
-  plan:
-    - get: pipeline
-      trigger: true
-    - set_pipeline: carvel-apps
-      file: pipeline/pipeline.yml
+# - name: update-pipeline
+#   public: true
+#   plan:
+#     - get: pipeline
+#       trigger: true
+#     - set_pipeline: carvel-apps
+#       file: pipeline/pipeline.yml
 
 - name: all-apps
   public: true
