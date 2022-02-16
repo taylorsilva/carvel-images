@@ -1,6 +1,6 @@
-FROM alpine
+FROM alpine:3
 
-RUN apk update && apk upgrade
+RUN apk update && apk upgrade && apk add --no-cache bash
 
 COPY kwt-release/kwt-linux-amd64 /usr/local/bin/kwt
 RUN kwt version
